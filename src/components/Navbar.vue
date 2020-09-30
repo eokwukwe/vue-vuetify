@@ -1,6 +1,17 @@
 <template>
   <nav>
     <v-navigation-drawer app color="primary" v-model="drawer">
+      <v-row justify="center" class="mt-5">
+        <v-col cols="6">
+          <v-avatar size="100">
+            <img src="/avatar-1.png" />
+          </v-avatar>
+          <p class="white--text subtitle-1 mt-1">The fCoder</p>
+        </v-col>
+      </v-row>
+
+      <v-divider></v-divider>
+
       <v-list>
         <v-list-item
           v-for="link in links"
