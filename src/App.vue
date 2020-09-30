@@ -1,19 +1,32 @@
 <template>
-  <v-app>
+  <v-app :style="{ background: $vuetify.theme.themes[theme].background }">
+    <navbar />
     <v-main>
-      <router-view></router-view>
+      <div class="px-4 pb-4">
+        <router-view></router-view>
+      </div>
     </v-main>
   </v-app>
 </template>
 
 <script>
-export default {
-  name: "App",
+import Navbar from '@/components/Navbar'
 
-  components: {},
+export default {
+  name: 'App',
+
+  components: {
+    Navbar
+  },
+
+  computed: {
+    theme() {
+      return this.$vuetify.theme.dark ? 'dark' : 'light'
+    }
+  },
 
   data: () => ({
     //
   })
-};
+}
 </script>
