@@ -10,7 +10,13 @@
         </v-col>
       </v-row>
 
-      <v-divider></v-divider>
+      <v-row justify="center">
+        <v-col cols="8">
+          <popup />
+        </v-col>
+      </v-row>
+
+      <v-divider class="my-2"></v-divider>
 
       <v-list>
         <v-list-item
@@ -31,7 +37,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar elevate-on-scroll dense flat app color="grey lighten-4">
+    <v-app-bar elevate-on-scroll dense app color="white lighten-4">
       <v-app-bar-nav-icon
         @click="drawer = !drawer"
         class="grey--text"
@@ -44,6 +50,28 @@
 
       <v-spacer></v-spacer>
 
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn text color="primary" dark v-bind="attrs" v-on="on">
+            <v-icon left>mdi-chevron-down</v-icon>
+            <span>Menu</span>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(link, index) in links"
+            :key="index"
+            router
+            :to="link.route"
+            class="p"
+          >
+            <v-list-item-title class="text-sm-body-2 primary--text">{{
+              link.text
+            }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
       <v-btn text color="grey">
         <span>Sign out</span>
         <v-icon right>mdi-exit-to-app</v-icon>
@@ -53,8 +81,14 @@
 </template>
 
 <script>
+import Popup from './Popup'
+
 export default {
   name: 'Navbar',
+
+  components: {
+    Popup
+  },
 
   data() {
     return {
