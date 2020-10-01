@@ -1,5 +1,14 @@
 <template>
   <nav>
+    <v-snackbar color="success" :timeout="4000" top v-model="snackbar">
+      Awesome! You have added a new project
+      <template v-slot:action="{ attrs }">
+        <v-btn color="black" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
     <v-navigation-drawer app color="primary" v-model="drawer">
       <v-row justify="center" class="mt-5">
         <v-col cols="6">
@@ -10,9 +19,10 @@
         </v-col>
       </v-row>
 
+      <!-- poppup modal-->
       <v-row justify="center">
         <v-col cols="8">
-          <popup />
+          <popup @project-added="snackbar = true" />
         </v-col>
       </v-row>
 
@@ -92,6 +102,7 @@ export default {
 
   data() {
     return {
+      snackbar: false,
       drawer: false,
       links: [
         { icon: 'mdi-view-dashboard', text: 'Dashboard', route: '/' },

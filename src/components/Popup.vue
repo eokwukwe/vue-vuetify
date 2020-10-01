@@ -63,6 +63,7 @@
                 :disabled="!valid"
                 depressed
                 color="success"
+                :loading="loading"
                 @click="submit"
               >
                 Add Project
@@ -78,12 +79,16 @@
 <script>
 import { format } from 'date-fns'
 import { parseISO } from 'date-fns'
+import firebase from '@/firebase'
+
+const db = firebase.firestore()
 
 export default {
   name: 'Popup',
 
   data() {
     return {
+      loading: false,
       valid: true,
       dateMenu: false,
       dialog: false,
@@ -104,10 +109,27 @@ export default {
   },
 
   methods: {
-    submit() {
+    async submit() {
       if (this.$refs.form.validate()) {
-        this.valid = true
-        console.log(this.title, this.content, this.formattedDate)
+        this.loading = true
+
+        const project = {
+          title: this.title,
+          content: this.content,
+          person: 'The fCoder',
+          dueDate: format(parseISO(this.dueDate), 'do MMM yyyy'),
+          status: 'ongoing'
+        }
+
+        try {
+          await db.collection('projects').add(project)
+        } catch (error) {
+          console.error(error.message)
+        } finally {
+          this.loading = false
+          this.dialog = false
+          this.$emit('project-added')
+        }
       }
     }
   }
