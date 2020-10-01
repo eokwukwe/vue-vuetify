@@ -127,6 +127,7 @@ export default {
           console.error(error.message)
         } finally {
           this.loading = false
+          this.$refs.form.reset()
           this.dialog = false
           this.$emit('project-added')
         }

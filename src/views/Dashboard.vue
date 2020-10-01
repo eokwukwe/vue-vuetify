@@ -50,8 +50,10 @@
               >
                 <v-row class="px-4">
                   <v-col cols="12" md="6">
-                    <div class="caption grey--text">Project Title</div>
-                    <div>{{ project.title }}</div>
+                    <div class="caption grey--text text-capitalize">
+                      Project Title
+                    </div>
+                    <div class="text-capitalize">{{ project.title }}</div>
                   </v-col>
 
                   <v-col cols="6" sm="4" md="2">
